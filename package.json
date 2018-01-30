@@ -2,7 +2,7 @@
   "name": "axios-api-client",
   "url": "https://github.com/untitledkingdom/axios-api-client",
   "repository": "github:untitledkingdom/axios-api-client",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Axios-based API client with Oauth authentication support.",
   "main": "lib/index.js",
   "scripts": {
