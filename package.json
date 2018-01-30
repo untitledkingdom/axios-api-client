@@ -7,14 +7,14 @@
   "main": "lib/index.js",
   "scripts": {
     "compile": "babel --presets es2015,stage-0 -d lib/ src/",
-    "prepublish": "npm run compile"
+    "prepare": "npm run compile"
   },
   "keywords": [
     "axios",
     "api"
   ],
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.16.0",
     "jquery-param": "^1.0.0",
     "js-cookie": "^2.2.0",
     "babel-polyfill": "^6.26.0"
