@@ -1,6 +1,6 @@
 require('babel-polyfill')
 
-import axios from "axios"
+import defaultAxios from "axios"
 import cookie from "js-cookie"
 import param from "jquery-param"
 
@@ -15,7 +15,8 @@ class AxiosApiClient {
     signOutPath: "sign_out"
   }
 
-  constructor({ access_token, refresh_token, apiUrl, paths = {} }) {
+  constructor({ access_token, refresh_token, apiUrl, axios, paths = {} }) {
+    this.axios = axios || defaultAxios
     this.access_token = access_token || cookie.get("access_token") || null
     this.refresh_token = refresh_token || cookie.get("refresh_token") || null
     this.settings = {
@@ -118,7 +119,7 @@ class AxiosApiClient {
     }
 
     try {
-      const response = await axios({
+      const response = await this.axios({
         method,
         headers,
         params,
