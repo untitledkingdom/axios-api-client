@@ -15,10 +15,11 @@ class AxiosApiClient {
     signOutPath: "sign_out"
   }
 
-  constructor({ access_token, refresh_token, apiUrl, axios, paths = {} }) {
+  constructor({ access_token, refresh_token, apiUrl, axios, headers = {}, paths = {} }) {
     this.axios = axios || defaultAxios
     this.access_token = access_token || cookie.get("access_token") || null
     this.refresh_token = refresh_token || cookie.get("refresh_token") || null
+    this.headers = headers
     this.settings = {
       paramsSerializer: params => param(params),
       responseType: "json",
@@ -110,10 +111,8 @@ class AxiosApiClient {
     //   throw this.errors.UNAUTHENTICATED
     // }
 
-    headers["Content-type"] = "application/vnd.api+json"
-    headers["Accept"] = "application/vnd.api+json"
-    headers["Client"] = "facets_edge"
-    headers["Context"] = "client"
+    Object.assign(headers, this.headers)
+
     if (authentication) {
       headers["Authorization"] = `bearer ${this.access_token}`
     }
