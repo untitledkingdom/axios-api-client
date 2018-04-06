@@ -163,7 +163,6 @@ class AxiosApiClient {
       this.setCredentials(request)
     } catch (error) {
       if (error.response && Number(error.response.status) === 401) {
-        this.clearSession()
         throw this.errors.WRONG_CREDENTIALS
       } else {
         throw error
@@ -183,8 +182,8 @@ class AxiosApiClient {
 
       this.setCredentials(request.data)
     } catch (error) {
+      this.clearSession()
       if (error.response && error.response.status === 401) {
-        this.clearSession()
         throw this.errors.WRONG_CREDENTIALS
       } else {
         throw error
