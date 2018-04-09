@@ -180,7 +180,7 @@ class AxiosApiClient {
         }
       )
 
-      this.setCredentials(request.data)
+      this.setCredentials(request)
     } catch (error) {
       this.clearSession()
       if (error.response && error.response.status === 401) {
