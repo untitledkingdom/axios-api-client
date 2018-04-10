@@ -45,7 +45,7 @@ class AxiosApiClient {
 
     if (typeof refresh_token !== "undefined") {
       this.refresh_token = refresh_token
-      if (access_token === null) {
+      if (refresh_token === null) {
         cookie.remove("refresh_token")
       } else {
         cookie.set("refresh_token", refresh_token, { path: "/" })
@@ -177,12 +177,12 @@ class AxiosApiClient {
         {
           grant_type: "refresh_token",
           refresh_token: this.refresh_token
-        }
+        },
+        { refresh_authentication: false }
       )
 
       this.setCredentials(request)
     } catch (error) {
-      this.clearSession()
       if (error.response && error.response.status === 401) {
         throw this.errors.WRONG_CREDENTIALS
       } else {
