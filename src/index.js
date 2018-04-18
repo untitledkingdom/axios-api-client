@@ -150,17 +150,17 @@ class AxiosApiClient {
 
   async requestOauthToken(email, password) {
     try {
-      const request = await this.post(
+      const response = await this.axios.post(
         this.paths.oauthTokenPath,
         {
           grant_type: "password",
           email: email,
           password: password
         },
-        { refresh_authentication: false }
+        { ...this.settings }
       )
 
-      this.setCredentials(request)
+      this.setCredentials(response.data)
     } catch (error) {
       if (error.response && Number(error.response.status) === 401) {
         throw this.errors.WRONG_CREDENTIALS
@@ -172,16 +172,16 @@ class AxiosApiClient {
 
   async refreshOauthToken() {
     try {
-      const request = await this.post(
+      const response = await this.axios.post(
         this.paths.oauthTokenPath,
         {
           grant_type: "refresh_token",
           refresh_token: this.refresh_token
         },
-        { refresh_authentication: false }
+        { ...this.settings }
       )
 
-      this.setCredentials(request)
+      this.setCredentials(response.data)
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw this.errors.WRONG_CREDENTIALS
